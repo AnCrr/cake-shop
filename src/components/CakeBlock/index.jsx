@@ -27,11 +27,11 @@ const CakeBlock = ({ id, title, types, sizes, price, imageUrl }) => {
   };
 
   return (
-    <div className="pizza-block-wrapper">
-      <div className="pizza-block">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-        <h4 className="pizza-block__title">{title}</h4>
-        <div className="pizza-block__selector">
+    <div className="cake-block-wrapper">
+      <div className="cake-block">
+        <img className="cake-block__image" src={imageUrl} alt="Cake" />
+        <h4 className="cake-block__title">{title}</h4>
+        <div className="cake-block__selector">
           <ul>
             {types.map((type, index) => (
               <li
@@ -55,8 +55,8 @@ const CakeBlock = ({ id, title, types, sizes, price, imageUrl }) => {
             ))}
           </ul>
         </div>
-        <div className="pizza-block__bottom">
-          <div className="pizza-block__price">от {price} ₴</div>
+        <div className="cake-block__bottom">
+          <div className="cake-block__price">от {price} ₴</div>
           <button
             onClick={onClickAdd}
             className="button button--outline button--add"

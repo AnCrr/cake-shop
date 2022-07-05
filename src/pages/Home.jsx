@@ -16,8 +16,8 @@ import {
   setCurrentPage,
   setFilters,
 } from "../redux/slices/filterSlice";
-import { fetchPizzas } from "../redux/slices/pizzaSlice";
-import { pizzaSelector } from "../redux/slices/pizzaSlice";
+import { fetchCakes } from "../redux/slices/cakeSlice";
+import { cakeSelector } from "../redux/slices/cakeSlice";
 import { filterSelector } from "../redux/slices/filterSlice";
 
 const Home = () => {
@@ -26,7 +26,7 @@ const Home = () => {
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const { items, status } = useSelector(pizzaSelector);
+  const { items, status } = useSelector(cakeSelector);
 
   const { categoryId, sortType, currentPage, searchValue } =
     useSelector(filterSelector);
@@ -43,12 +43,12 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const getPizzas = async () => {
+  const getCakes = async () => {
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
     dispatch(
-      fetchPizzas({
+      fetchCakes({
         sortBy: sortType.sortProperty,
         order: sortType.order,
         category,
@@ -94,10 +94,10 @@ const Home = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    getPizzas();
+    getCakes();
   }, [categoryId, currentPage]);
 
-  const pizzas = items.map((obj) => <CakeBlock key={obj.id} {...obj} />);
+  const cakes = items.map((obj) => <CakeBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
@@ -119,7 +119,7 @@ const Home = () => {
         </div>
       ) : (
         <div className="content__items">
-          {status === "loading" ? skeletons : pizzas}
+          {status === "loading" ? skeletons : cakes}
         </div>
       )}
 

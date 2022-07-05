@@ -16,7 +16,7 @@ const Header = () => {
       <div className="container">
         <Link to="/">
           <div className="header__logo">
-            <img width="38" src={logo} alt="Pizza logo" />
+            <img width="38" src={logo} alt="Cake logo" />
             <div>
               <h1>Sweet World</h1>
               <p>торты на все случаи жизни</p>

@@ -3,7 +3,7 @@ import ContentLoader from "react-content-loader";
 
 const Skeleton = () => (
   <ContentLoader
-    className="pizza-block"
+    className="cake-block"
     speed={2}
     width={280}
     height={500}
