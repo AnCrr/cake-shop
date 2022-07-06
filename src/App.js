@@ -2,24 +2,23 @@ import "./scss/app.scss";
 import React, { useState, createContext } from "react";
 
 import Home from "./pages/Home";
-import Header from "./components/Header";
+
 import NotFound from "./pages/NotFound.jsx";
 import { Routes, Route } from "react-router-dom";
 import Cart from "./pages/Cart";
+import FullCake from "./pages/FullCake";
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
   return (
-    <div className="wrapper">
-      <div className="content">
-        <Header />
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route path="" element={<Home />} />
+        <Route path="cart" element={<Cart />} />
+        <Route path="cake/:id" element={<FullCake />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   );
 }
 

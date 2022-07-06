@@ -4,6 +4,7 @@ import axios from "axios";
 export const fetchCakes = createAsyncThunk(
   "cake/fetchCakesStatus",
   async ({ sortBy, order, category, search, currentPage }) => {
+    console.log(order);
     const { data } = await axios.get(
       `https://62b1930ac7e53744afbc2567.mockapi.io/items?page=${currentPage}&limit=8&${category}&sortBy=${sortBy}&order=${order}${search}`
     );

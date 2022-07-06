@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
 
@@ -9,7 +8,7 @@ import Sort, { SORT_LIST } from "../components/Sort";
 import CakeBlock from "../components/CakeBlock";
 import Skeleton from "../components/CakeBlock/Skeleton";
 import Pagination from "../components/Pagination";
-import { SearchContext } from "../App";
+
 import {
   setCategoryId,
   setSortType,
@@ -71,7 +70,7 @@ const Home = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [categoryId, sortType.sortProperty, currentPage]);
+  }, [categoryId, sortType, currentPage]);
 
   useEffect(() => {
     if (window.location.search) {
@@ -87,7 +86,7 @@ const Home = () => {
           sortType: sort,
         })
       );
-      isSearch.current = true;
+      isMounted.current = true;
     }
   }, []);
 
@@ -95,7 +94,7 @@ const Home = () => {
     window.scrollTo(0, 0);
 
     getCakes();
-  }, [categoryId, currentPage]);
+  }, [categoryId, currentPage, sortType, searchValue]);
 
   const cakes = items.map((obj) => <CakeBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(6)].map((_, index) => (

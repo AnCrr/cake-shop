@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { addItem } from "../../redux/slices/cartSlice";
 import { cartItemIdSelector } from "../../redux/slices/cartSlice";
@@ -29,7 +30,9 @@ const CakeBlock = ({ id, title, types, sizes, price, imageUrl }) => {
   return (
     <div className="cake-block-wrapper">
       <div className="cake-block">
-        <img className="cake-block__image" src={imageUrl} alt="Cake" />
+        <Link to={`/cake/${id}`}>
+          <img className="cake-block__image" src={imageUrl} alt="Cake" />
+        </Link>
         <h4 className="cake-block__title">{title}</h4>
         <div className="cake-block__selector">
           <ul>
