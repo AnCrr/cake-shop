@@ -1,9 +1,7 @@
 import "./scss/app.scss";
-import React, { useState, createContext } from "react";
 
 import Home from "./pages/Home";
-
-import NotFound from "./pages/NotFound.jsx";
+import NotFound from "./pages/NotFound";
 import { Routes, Route } from "react-router-dom";
 import Cart from "./pages/Cart";
 import FullCake from "./pages/FullCake";

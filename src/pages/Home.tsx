@@ -1,13 +1,16 @@
 import React, { useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../redux/store";
 
 import Categories from "../components/Categories";
-import Sort, { SORT_LIST } from "../components/Sort";
+import SortPopup, { SORT_LIST } from "../components/Sort";
 import CakeBlock from "../components/CakeBlock";
 import Skeleton from "../components/CakeBlock/Skeleton";
 import Pagination from "../components/Pagination";
+import { FilterSliceState } from "../redux/slices/filterSlice";
+import { SearchCakeParams } from "../redux/slices/cakeSlice";
 
 import {
   setCategoryId,
@@ -19,10 +22,9 @@ import { fetchCakes } from "../redux/slices/cakeSlice";
 import { cakeSelector } from "../redux/slices/cakeSlice";
 import { filterSelector } from "../redux/slices/filterSlice";
 
-const Home = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const isSearch = useRef(false);
+  const dispatch = useAppDispatch();
   const isMounted = useRef(false);
 
   const { items, status } = useSelector(cakeSelector);
@@ -30,16 +32,24 @@ const Home = () => {
   const { categoryId, sortType, currentPage, searchValue } =
     useSelector(filterSelector);
 
-  const onChangeCategory = (id) => {
-    dispatch(setCategoryId(id));
+  const onChangeCategory = (idx: number) => {
+    dispatch(setCategoryId(idx));
   };
 
-  const onSetSortType = (type) => {
-    dispatch(setSortType(type));
-  };
+  // const onSetSortType = (type: {
+  //   name: string;
+  //   sortProperty: string;
+  //   order: string;
+  // }) => {
+  //   console.log("type", type);
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  //   dispatch(setSortType(type));
+  // };
+
+  const onChangePage = (page: number) => {
+    console.log("page", page);
+
+    dispatch(setCurrentPage(page));
   };
 
   const getCakes = async () => {
@@ -52,51 +62,59 @@ const Home = () => {
         order: sortType.order,
         category,
         search,
-        currentPage,
+        currentPage: String(currentPage),
       })
     );
 
     window.scrollTo(0, 0);
   };
 
+  // useEffect(() => {
+  //   if (isMounted.current) {
+  //     const params = {
+  //       sortProperty: sortType.sortProperty,
+  //       categoryId: categoryId > 0 ? categoryId : null,
+  //       currentPage,
+  //     };
+  //     const queryString = qs.stringify(params);
+
+  //     navigate(`?${queryString}`);
+  //   }
+  //   //isMounted.current = true;
+  //   if (!window.location.search) {
+  //     dispatch(fetchCakes({} as SearchCakeParams));
+  //   }
+  // }, [categoryId, sortType, currentPage]);
+
+  // useEffect(() => {
+  //   if (window.location.search) {
+  //     const params = qs.parse(
+  //       window.location.search.substring(1)
+  //     ) as unknown as SearchCakeParams;
+
+  //     const sort = SORT_LIST.find((obj) => obj.sortProperty === params.sortBy);
+  //     // if (sort) {
+  //     //   params.sort = sort;
+  //     // }
+  //     dispatch(
+  //       setFilters({
+  //         searchValue: params.search,
+  //         categoryId: Number(params.category),
+  //         currentPage: Number(params.currentPage),
+  //         sortType: sort || SORT_LIST[0],
+  //       })
+  //     );
+  //     isMounted.current = true;
+  //   }
+  // }, []);
+
   useEffect(() => {
-    if (isMounted.current) {
-      const queryString = qs.stringify({
-        sortProperty: sortType.sortProperty,
-        categoryId,
-        currentPage,
-      });
-
-      navigate(`?${queryString}`);
-    }
-    isMounted.current = true;
-  }, [categoryId, sortType, currentPage]);
-
-  useEffect(() => {
-    if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-
-      const sort = SORT_LIST.find(
-        (obj) => obj.sortProperty === params.sortProperty
-      );
-
-      dispatch(
-        setFilters({
-          ...params,
-          sortType: sort,
-        })
-      );
-      isMounted.current = true;
-    }
-  }, []);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
+    //window.scrollTo(0, 0);
 
     getCakes();
   }, [categoryId, currentPage, sortType, searchValue]);
 
-  const cakes = items.map((obj) => <CakeBlock key={obj.id} {...obj} />);
+  const cakes = items.map((obj: any) => <CakeBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
@@ -108,7 +126,7 @@ const Home = () => {
           activeIndex={categoryId}
           onChangeCategory={onChangeCategory}
         />
-        <Sort selectedItem={sortType} onChangeSort={onSetSortType} />
+        <SortPopup selectedItem={sortType} />
       </div>
       <h2 className="content__title">Все торты</h2>
       {status === "error" ? (

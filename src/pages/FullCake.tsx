@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import Skeleton from "../components/CakeBlock/Skeleton";
-
-const FullCake = () => {
+const FullCake: React.FC = () => {
   const { id } = useParams();
-  const [cake, setCake] = useState();
+  const [cake, setCake] = useState<{
+    imageUrl: string;
+    title: string;
+    price: number;
+    description: string;
+  }>();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,7 +34,7 @@ const FullCake = () => {
   return (
     <div className="fullCake-block-wrapper">
       <div className="fullCake-block">
-        <img className="fullCake-block__image" src={cake.imageUrl} />
+        <img className="fullCake-block__image" src={cake.imageUrl} alt="Cake" />
         <h2 className="fullCake-block__title">{cake.title}</h2>
         <h4 className="fullCake-block__price">Стоимость: {cake.price} ₴</h4>
       </div>

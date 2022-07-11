@@ -2,27 +2,44 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { addItem } from "../../redux/slices/cartSlice";
+import { addItem, CartItem } from "../../redux/slices/cartSlice";
 import { cartItemIdSelector } from "../../redux/slices/cartSlice";
 
 const TYPE_NAMES = ["обычный", "веганский"];
 
-const CakeBlock = ({ id, title, types, sizes, price, imageUrl }) => {
+type CakeBlockProps = {
+  id: string;
+  title: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+  imageUrl: string;
+};
+
+const CakeBlock: React.FC<CakeBlockProps> = ({
+  id,
+  title,
+  types,
+  sizes,
+  price,
+  imageUrl,
+}) => {
   const dispatch = useDispatch();
-  const cartItem = useSelector((state) => cartItemIdSelector(id, state));
+  const cartItem = useSelector(cartItemIdSelector(id));
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
 
   const addedCount = cartItem ? cartItem.count : "0";
 
   const onClickAdd = () => {
-    const item = {
+    const item: CartItem = {
       id,
       title,
       price,
       imageUrl,
       type: TYPE_NAMES[activeType],
       size: sizes[activeSize],
+      count: 0,
     };
     dispatch(addItem(item));
   };
@@ -32,8 +49,8 @@ const CakeBlock = ({ id, title, types, sizes, price, imageUrl }) => {
       <div className="cake-block">
         <Link to={`/cake/${id}`}>
           <img className="cake-block__image" src={imageUrl} alt="Cake" />
+          <h4 className="cake-block__title">{title}</h4>
         </Link>
-        <h4 className="cake-block__title">{title}</h4>
         <div className="cake-block__selector">
           <ul>
             {types.map((type, index) => (
