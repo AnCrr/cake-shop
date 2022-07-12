@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import CartItemBlock from "../components/CartItem";
 import CartEmpty from "../components/CartEmpty";
-import { clearItems } from "../redux/slices/cartSlice";
-import { cartSelector } from "../redux/slices/cartSlice";
+import { clearItems } from "../redux/cart/slice";
+import { cartSelector } from "../redux/cart/selectors";
 
 const Cart: React.FC = () => {
   const onClickClear = () => {

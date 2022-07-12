@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { addItem, CartItem } from "../../redux/slices/cartSlice";
-import { cartItemIdSelector } from "../../redux/slices/cartSlice";
+import { CartItem } from "../../redux/cart/types";
+import { cartItemIdSelector } from "../../redux/cart/selectors";
+import { addItem } from "../../redux/cart/slice";
 
 const TYPE_NAMES = ["обычный", "веганский"];
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { useSelector } from "react-redux";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
@@ -9,18 +9,18 @@ import SortPopup, { SORT_LIST } from "../components/Sort";
 import CakeBlock from "../components/CakeBlock";
 import Skeleton from "../components/CakeBlock/Skeleton";
 import Pagination from "../components/Pagination";
-import { FilterSliceState } from "../redux/slices/filterSlice";
-import { SearchCakeParams } from "../redux/slices/cakeSlice";
+import { FilterSliceState } from "../redux/filter/types";
+import { SearchCakeParams } from "../redux/cake/types";
 
 import {
   setCategoryId,
   setSortType,
   setCurrentPage,
   setFilters,
-} from "../redux/slices/filterSlice";
-import { fetchCakes } from "../redux/slices/cakeSlice";
-import { cakeSelector } from "../redux/slices/cakeSlice";
-import { filterSelector } from "../redux/slices/filterSlice";
+} from "../redux/filter/slice";
+import { fetchCakes } from "../redux/cake/asynkActions";
+import { cakeSelector } from "../redux/cake/selectors";
+import { filterSelector } from "../redux/filter/selectors";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -32,9 +32,9 @@ const Home: React.FC = () => {
   const { categoryId, sortType, currentPage, searchValue } =
     useSelector(filterSelector);
 
-  const onChangeCategory = (idx: number) => {
+  const onChangeCategory = useCallback((idx: number) => {
     dispatch(setCategoryId(idx));
-  };
+  }, []);
 
   // const onSetSortType = (type: {
   //   name: string;
