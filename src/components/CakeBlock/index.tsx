@@ -17,7 +17,7 @@ type CakeBlockProps = {
   imageUrl: string;
 };
 
-const CakeBlock: React.FC<CakeBlockProps> = ({
+export const CakeBlock: React.FC<CakeBlockProps> = ({
   id,
   title,
   types,
@@ -102,5 +102,3 @@ const CakeBlock: React.FC<CakeBlockProps> = ({
     </div>
   );
 };
-
-export default CakeBlock;

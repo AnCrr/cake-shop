@@ -43,7 +43,7 @@ export const SORT_LIST: SortItem[] = [
   },
 ];
 
-const SortPopup: React.FC<SortProps> = React.memo(({ selectedItem }) => {
+export const SortPopup: React.FC<SortProps> = React.memo(({ selectedItem }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const sortRef = useRef<HTMLDivElement>(null);

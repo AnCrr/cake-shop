@@ -1,6 +1,16 @@
 .root{
     position: relative;
-    left: -100px;
+    left: 100px;
+
+    @media(max-width:1005px){
+      left: 10px;
+      
+    }
+
+    @media(max-width:910px){
+      flex-direction: column;
+      margin-top: 20px;
+    }
 }
 
 .input{
@@ -10,6 +20,17 @@
     width: 300px;
     border-radius: 10px;
     font-size: 16px;
+
+    @media(max-width:400px){
+        width: 170px;
+        margin-left: 190px;
+        margin-top: 20px;
+      }
+      // @media(max-width:1005px){
+      //   width: 170px;
+        
+      // }
+   
 
     &:focus{
         border:1px solid rgba(0,0,0,0.3);
@@ -38,4 +59,6 @@
     &:hover {
       opacity: 0.6;
     }
+
+    
   }

@@ -2,9 +2,9 @@ import React, { useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../redux/store";
 
-import Categories from "../components/Categories";
+import { Categories } from "../components";
 import SortPopup from "../components/Sort";
-import CakeBlock from "../components/CakeBlock";
+import { CakeBlock } from "../components";
 import Skeleton from "../components/CakeBlock/Skeleton";
 import Pagination from "../components/Pagination";
 

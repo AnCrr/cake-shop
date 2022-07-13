@@ -4,10 +4,20 @@
   border-bottom: 1px solid $gray-line;
   padding: 40px 0;
 
+  &-logo-search{
+    display: flex;
+
+    @media(max-width:910px){
+      flex-direction: column;
+    }
+  }
+
   .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+   
 
     @media(max-width:645px){
      flex-direction: column;

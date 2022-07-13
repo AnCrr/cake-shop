@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 import logo from "../assets/img/cake.svg";
-import Search from "./Search";
+import { Search } from "./index";
 import { cartSelector } from "../redux/cart/selectors";
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   const { items, totalPrice } = useSelector(cartSelector);
   const location = useLocation();
   const isMounted = useRef(false);
@@ -28,16 +28,18 @@ const Header: React.FC = () => {
   return (
     <div className="header">
       <div className="container">
-        <Link to="/">
-          <div className="header__logo">
-            <img width="38" src={logo} alt="Cake logo" />
-            <div>
-              <h1>Sweet World</h1>
-              <p>торты на все случаи жизни</p>
+        <div className="header-logo-search">
+          <Link to="/">
+            <div className="header__logo">
+              <img width="38" src={logo} alt="Cake logo" />
+              <div>
+                <h1>Sweet World</h1>
+                <p>торты на все случаи жизни</p>
+              </div>
             </div>
-          </div>
-        </Link>
-        {location.pathname !== "/cart" && <Search />}
+          </Link>
+          {location.pathname !== "/cart" && <Search />}
+        </div>
         {location.pathname !== "/cart" && (
           <div className="header__cart">
             <Link to="/cart" className="button button--cart">
@@ -80,5 +82,3 @@ const Header: React.FC = () => {
     </div>
   );
 };
-
-export default Header;
